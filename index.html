@@ -24,7 +24,7 @@ sendButton.addEventListener('click', () => {
     chatMessageInput.value = '';
 
     // Send message to the back-end
-fetch('/chat', {
+fetch('https://rafaa-mla.hf.space/chat', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
