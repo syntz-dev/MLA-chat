@@ -1,50 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chatbot</title>
-    <style>
-        #chatbox {
-            width: 300px;
-            height: 400px;
-            border: 1px solid black;
-            overflow: auto;
-        }
-        #userInput {
-            width: 300px;
-        }
-    </style>
+  <title>Mistral 7b Chatbot</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="chatbox"></div>
-    <input id="userInput" type="text">
-    <button onclick="sendMessage()">Send</button>
+  <div id="chat-container">
+    <div id="chat-history"></div>
+    <div id="chat-input">
+      <input type="text" id="chat-message" placeholder="Enter your message...">
+      <button id="send-button">Send</button>
+    </div>
+  </div>
 
-    <script>
-        function sendMessage() {
-            var input = document.getElementById('userInput').value;
-            document.getElementById('userInput').value = "";
+  <script>
+      const chatHistory = document.getElementById('chat-history');
+const chatMessageInput = document.getElementById('chat-message');
+const sendButton = document.getElementById('send-button');
 
-            var chatbox = document.getElementById('chatbox');
-            chatbox.innerHTML += '<p>You: ' + input + '</p>';
+sendButton.addEventListener('click', () => {
+  const message = chatMessageInput.value.trim();
+  if (message) {
+    chatMessageInput.value = '';
 
-            // Call your back-end API here with the user's message. 
-            // The API should return the chatbot's response.
-            // For example:
-            fetch('https://rafaa-mla.hf.space', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: input,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                chatbox.innerHTML += '<p>Bot: ' + data.message + '</p>';
-                chatbox.scrollTop = chatbox.scrollHeight;
-            });
-        }
-    </script>
+    // Send message to the back-end
+    fetch('/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const response = data.response;
+        const chatHistoryItem = document.createElement('div');
+        chatHistoryItem.classList.add('chat-history-item');
+        chatHistoryItem.innerHTML = `<b>You:</b> ${message}<br><b>Mistral 7b:</b> ${response}`;
+        chatHistory.appendChild(chatHistoryItem);
+      });
+  }
+});
+
+  </script>
 </body>
 </html>
