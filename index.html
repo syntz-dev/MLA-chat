@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Mistral 7b Chatbot</title>
-  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="chat-container">
@@ -24,7 +23,7 @@ sendButton.addEventListener('click', () => {
     chatMessageInput.value = '';
 
     // Send message to the back-end
-fetch('https://rafaa-mla.hf.space/chat', {
+fetch('ngoctuanai-gpt4-api.hf.space/chat', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
