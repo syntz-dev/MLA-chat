@@ -24,21 +24,23 @@ sendButton.addEventListener('click', () => {
     chatMessageInput.value = '';
 
     // Send message to the back-end
-    fetch('https://rafaa-mla.hf.space/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ message }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const response = data.response;
-        const chatHistoryItem = document.createElement('div');
-        chatHistoryItem.classList.add('chat-history-item');
-        chatHistoryItem.innerHTML = `<b>You:</b> ${message}<br><b>Mistral 7b:</b> ${response}`;
-        chatHistory.appendChild(chatHistoryItem);
-      });
+fetch('/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ message }),
+  mode: 'no-cors'
+})
+  .then((response) => response.json())
+  .then((data) => {
+    const response = data.response;
+    const chatHistoryItem = document.createElement('div');
+    chatHistoryItem.classList.add('chat-history-item');
+    chatHistoryItem.innerHTML = `<b>You:</b> ${message}<br><b>Mistral 7b:</b> ${response}`;
+    chatHistory.appendChild(chatHistoryItem);
+  });
+
   }
 });
 
