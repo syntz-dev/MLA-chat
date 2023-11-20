@@ -23,7 +23,7 @@ sendButton.addEventListener('click', () => {
     chatMessageInput.value = '';
 
     // Send message to the back-end
-fetch('ngoctuanai-gpt4-api.hf.space/chat', {
+fetch('https://fiz2-cloudy.hf.space/proxy/aws/claude/', {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
